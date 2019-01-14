@@ -17,7 +17,12 @@ provider:
   name: aws
   runtime: nodejs8.10
   stage: dev
-  region: us-east-1
+  region: ap-northeast-2
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:PutObject
+      Resource: "arn:aws:s3:::${file(config.json):BUCKET}/*"
   # To load environment variables externally
   # rename env.example to env.yml and uncomment
   # the following line. Also, make sure to not
@@ -26,9 +31,11 @@ provider:
   #environment: ${file(env.yml):${self:provider.stage}}
 
 functions:
-  hello:
-    handler: handler.hello
+  store:
+    handler: api.handle
     events:
       - http:
-          path: hello
-          method: get
+          path: /
+          method: post
+          cors: true
+

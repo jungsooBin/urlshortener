@@ -1,0 +1,5 @@
+{
+  "BUCKET": "urlshortener-jungsoo",
+  "REGION": "ap-northeast-2",
+  "STAGE": "dev"
+}
